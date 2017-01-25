@@ -49,6 +49,7 @@ function sp(){
     y.domain([0, d3.max(data, function(d){ return d[1] })]);
     
     console.log(self.data);
+    console.log(dataset);
     draw();
 
     });
