@@ -54,8 +54,6 @@ function sp(){
 
     });
 
-    console.log(data)
-
     function draw()
     {
         
