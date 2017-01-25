@@ -34,28 +34,27 @@ function sp(){
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+    var datanames = ["Employment rate", "Life satisfaction"];
     //Load data
     d3.csv("data/OECD-better-life-index-hi.csv", function(error, dataset) {
         self.data = dataset.map(function(d){ 
-            return [ +d["Water quality"], +d["Voter turnout"] ];
+            return [ +d[datanames[0]], +d[datanames[1]] ];
         });
         
         //define the domain of the scatter plot axes
         //...
 
-    x.domain([0, d3.max(data, function(d){ return d[0] })]);
-    y.domain([0, d3.max(data, function(d){ return d[1] })]);
+    x.domain(d3.extent(data, function(d){ return d[0] }));
+    y.domain(d3.extent(data, function(d){ return d[1] }));
 
     xAxis.scale(x);
     yAxis.scale(y);
-    
-    console.log(x(569));
-    console.log(dataset);
-    console.log(data);
 
     draw();
 
     });
+
+    console.log(data)
 
     function draw()
     {
@@ -68,7 +67,9 @@ function sp(){
             .append("text")
             .attr("class", "label")
             .attr("x", width)
-            .attr("y", -6);
+            .attr("y", -6)
+            .text(datanames[0])
+            .attr("text-anchor", "end");
             
         // Add y axis and title.
         svg.append("g")
@@ -76,9 +77,10 @@ function sp(){
             .call(yAxis)
             .append("text")
             .attr("class", "label")
-            .attr("transform", "rotate(-90)")
-            .attr("y", 6)
-            .attr("dy", ".71em");
+            .attr("y", 0)
+            .attr("x", 6)
+            .attr("dy", ".71em")
+            .text(datanames[1]);
             
         // Add the scatter dots.
         svg.selectAll(".dot")
@@ -87,7 +89,7 @@ function sp(){
             .attr("class", "dot")
             .attr("cx", function(d){ return x(d[0]); })
             .attr("cy", function(d){ return y(d[1]); })
-            .attr("cr", "10px")
+            .attr("r", 5)
             //tooltip
             .on("mousemove", function(d) {
                 //...    
