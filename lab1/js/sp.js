@@ -45,10 +45,11 @@ function sp(){
         //define the domain of the scatter plot axes
         //...
 
-    x.domain([0, d3.max(data, function(d){ return d[0] })]);
-    y.domain([0, d3.max(data, function(d){ return d[1] })]);
+    //x.domain([0, d3.max(data, function(d){ return d[0] })]);
+    //y.domain([0, d3.max(data, function(d){ return d[1] })]);
     
-    console.log(x(569));
+    //console.log(x(569));
+    console.log(data);
 
     draw();
 
