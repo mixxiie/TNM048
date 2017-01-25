@@ -2,8 +2,6 @@ function sp(){
 
     var self = this; // for internal d3 functions
 
-    var data = [];
-
     var spDiv = $("#sp");
 
     var margin = {top: 20, right: 20, bottom: 30, left: 40},
@@ -45,10 +43,13 @@ function sp(){
         //define the domain of the scatter plot axes
         //...
 
-    //x.domain([0, d3.max(data, function(d){ return d[0] })]);
-    //y.domain([0, d3.max(data, function(d){ return d[1] })]);
+    x.domain([0, d3.max(data, function(d){ return d[0] })]);
+    y.domain([0, d3.max(data, function(d){ return d[1] })]);
+
+    xAxis.scale(x);
+    yAxis.scale(y);
     
-    //console.log(x(569));
+    console.log(x(569));
     console.log(dataset);
     console.log(data);
 
@@ -84,8 +85,9 @@ function sp(){
             .data(self.data)
             .enter().append("circle")
             .attr("class", "dot")
-            //Define the x and y coordinate data values for the dots
-            //...
+            .attr("cx", function(d){ return x(d[0]); })
+            .attr("cy", function(d){ return y(d[1]); })
+            .attr("cr", "10px")
             //tooltip
             .on("mousemove", function(d) {
                 //...    
