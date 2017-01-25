@@ -2,8 +2,6 @@ function sp(){
 
     var self = this; // for internal d3 functions
 
-    var data = [];
-
     var spDiv = $("#sp");
 
     var margin = {top: 20, right: 20, bottom: 30, left: 40},
@@ -45,11 +43,10 @@ function sp(){
         //define the domain of the scatter plot axes
         //...
 
-    //x.domain([0, d3.max(data, function(d){ return d[0] })]);
-    //y.domain([0, d3.max(data, function(d){ return d[1] })]);
+    x.domain([0, d3.max(data, function(d){ return d[0] })]);
+    y.domain([0, d3.max(data, function(d){ return d[1] })]);
     
-    console.log(self.data);
-    console.log(dataset);
+    console.log(x(569));
 
     draw();
 
