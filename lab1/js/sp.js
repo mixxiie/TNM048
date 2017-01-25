@@ -37,8 +37,8 @@ function sp(){
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     //Load data
-    d3.csv("data/OECD-better-life-index-hi.csv", function(error, data) {
-        self.data = data.map(function(d){ 
+    d3.csv("data/OECD-better-life-index-hi.csv", function(error, dataset) {
+        self.data = dataset.map(function(d){ 
             return [ +d["Water quality"], +d["Voter turnout"] ];
         });
         
