@@ -2,6 +2,8 @@ function sp(){
 
     var self = this; // for internal d3 functions
 
+    var data = []:
+    
     var spDiv = $("#sp");
 
     var margin = {top: 20, right: 20, bottom: 30, left: 40},
