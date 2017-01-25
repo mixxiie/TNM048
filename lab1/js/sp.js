@@ -45,7 +45,8 @@ function sp(){
 
     x.domain([0, d3.max(data, function(d){ return d[0] })]);
     y.domain([0, d3.max(data, function(d){ return d[1] })]);
-        
+    
+    console.log(data[1][0] + ", " + data[1][1]);
     draw();
 
     });
