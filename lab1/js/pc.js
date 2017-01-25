@@ -4,6 +4,8 @@ function pc(){
 
     var pcDiv = $("#pc");
 
+    var mapdata = [];
+
     var margin = [30, 10, 10, 10],
         width = pcDiv.width() - margin[1] - margin[3],
         height = pcDiv.height() - margin[0] - margin[2];
@@ -37,14 +39,19 @@ function pc(){
 
         // Extract the list of dimensions and create a scale for each.
         //...
-        x.domain(dimensions = d3.keys(data[0]).filter(function(d) {
-            return [(y[d] = d3.scale.linear()
-                .domain(d3.extent(+data[d]))
-                .range([height, 0]))];
-        }));
+        x.domain(dimensions = d3.keys(data[0]).filter(function(key, i) {
 
-        console.log(data);
-        console.log(dimensions);
+            if(i > 0 && i < 5){
+                mapdata.push(self.data.map(function(d){ 
+                    return (i == 0) ? d[key] : +d[key];
+                }));
+
+                console.log(mapdata);
+                return y[key] = d3.scale.linear()
+                    .domain(d3.extent(mapdata))
+                    .range([height, 0]);
+            }
+        }));
 
 
         draw();
@@ -55,8 +62,12 @@ function pc(){
         background = svg.append("svg:g")
             .attr("class", "background")
             .selectAll("path")
-            //add the data and append the path 
-            //...
+            .data(self.data)
+            .enter()
+            .append("d", function(d){ return path(d); })
+            .attr("fill", "none")
+            .attr("stroke", "black")
+            .attr("stroke-width", 2)
             .on("mousemove", function(d){})
             .on("mouseout", function(){});
 
@@ -66,6 +77,13 @@ function pc(){
             .selectAll("path")
             //add the data and append the path 
             //...
+
+            .data(self.data)
+            .enter()
+            .append("d", function(d){ return path(d); })
+            .attr("fill", "none")
+            .attr("stroke", "black")
+            .attr("stroke-width", 2)
             .on("mousemove", function(){})
             .on("mouseout", function(){});
 
@@ -80,10 +98,11 @@ function pc(){
         g.append("svg:g")
             .attr("class", "axis")
             //add scale
+            .call(function(d){ return y[d]; })
             .append("svg:text")
             .attr("text-anchor", "middle")
             .attr("y", -9)
-            .text(String);
+            .text(function(d){ return d; })
 
         // Add and store a brush for each axis.
         g.append("svg:g")
