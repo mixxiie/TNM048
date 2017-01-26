@@ -18,7 +18,8 @@ function pc(){
     //...
 
     var x = d3.scale.ordinal().rangePoints([0, width], 1),
-        y = {};
+        y = {},
+        yAxis = {};
         
 
     var line = d3.svg.line(),
@@ -47,10 +48,16 @@ function pc(){
                 }));
 
                 console.log(mapdata);
-                return y[key] = d3.scale.linear()
+
+                y[key] = d3.scale.linear()
                     .domain(d3.extent(mapdata))
                     .range([height, 0]);
+
+                return yAxis[key] = d3.svg.axis()
+                    .scale(y[key])
+                    .orient("left");
             }
+
         }));
 
 
@@ -98,7 +105,7 @@ function pc(){
         g.append("svg:g")
             .attr("class", "axis")
             //add scale
-            .call(function(d){ return y[d]; })
+            .call(function(d){ return yAxis[d]; })
             .append("svg:text")
             .attr("text-anchor", "middle")
             .attr("y", -9)
