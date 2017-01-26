@@ -21,11 +21,9 @@ function sp(){
         .range([height, 0]);
 
     var xAxis = d3.svg.axis()
-        .scale(x)
         .orient("bottom");
 
     var yAxis = d3.svg.axis()
-        .scale(y)
         .orient("left");
 
     var svg = d3.select("#sp").append("svg")
@@ -44,8 +42,8 @@ function sp(){
         //define the domain of the scatter plot axes
         //...
 
-    x.domain(d3.extent(data, function(d){ return d[0] }));
-    y.domain(d3.extent(data, function(d){ return d[1] }));
+    x.domain(d3.extent(self.data, function(d){ return d[0] }));
+    y.domain(d3.extent(self.data, function(d){ return d[1] }));
 
     xAxis.scale(x);
     yAxis.scale(y);

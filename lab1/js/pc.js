@@ -53,9 +53,10 @@ function pc(){
                     .domain(d3.extent(mapdata))
                     .range([height, 0]);
 
+                console.log(y[key])
                 return yAxis[key] = d3.svg.axis()
-                    .scale(y[key])
-                    .orient("left");
+                    .orient("left")
+                    .scale(y[key]);
             }
 
         }));
@@ -105,7 +106,8 @@ function pc(){
         g.append("svg:g")
             .attr("class", "axis")
             //add scale
-            .call(function(d){ return yAxis[d]; })
+
+            .call(yAxis[dimensions[1]])
             .append("svg:text")
             .attr("text-anchor", "middle")
             .attr("y", -9)
